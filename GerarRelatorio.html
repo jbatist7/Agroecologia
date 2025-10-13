@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de Avaliação da Transição Agroecológica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 10px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 8px;
+        }
+
+        .author {
+            font-size: 0.95em;
+            opacity: 0.9;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        section {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            border-left: 5px solid #2ecc71;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #34495e;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .form-group input {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2ecc71;
+        }
+
+        .scale-info {
+            background: #f8f9fa;
+            border-left: 5px solid #3498db;
+        }
+
+        .scale-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .scale-item {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            font-size: 0.9em;
+        }
+
+        .scale-item strong {
+            color: #3498db;
+            font-size: 1.1em;
+        }
+
+        .fase-section {
+            background: #fafafa;
+        }
+
+        .fase-section:nth-child(even) {
+            background: white;
+        }
+
+        .fase-title {
+            color: #27ae60;
+            border-left-color: #27ae60;
+        }
+
+        .indicadores {
+            margin-bottom: 20px;
+        }
+
+        .indicador {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .indicador label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 10px;
+        }
+
+        .input-group input {
+            padding: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #27ae60;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+        }
+
+        .pontuacao {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .subtotal {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            text-align: right;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+        }
+
+        .subtotal span {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .resultado-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .resultado-section h2 {
+            color: white;
+            border-left-color: white;
+        }
+
+        .resultado-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .resultado-item {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .resultado-item strong {
+            color: #2c3e50;
+            font-size: 1.1em;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .valor-destaque {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #27ae60;
+            display: block;
+            margin-top: 8px;
+        }
+
+        .fase-badge {
+            display: inline-block;
+            padding: 8px 18px;
+            background: #3498db;
+            color: white;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .status-texto {
+            color: #555;
+            font-size: 1em;
+            line-height: 1.8;
+            margin-top: 8px;
+        }
+
+        .grafico-section {
+            background: #f8f9fa;
+        }
+
+        #radarChart {
+            max-width: 600px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .analise-section {
+            background: white;
+        }
+
+        .analise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .fase-analise {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #95a5a6;
+        }
+
+        .fase-analise.forte {
+            border-left-color: #27ae60;
+        }
+
+        .fase-analise.medio {
+            border-left-color: #f39c12;
+        }
+
+        .fase-analise.fraco {
+            border-left-color: #e74c3c;
+        }
+
+        .fase-analise h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        .fase-analise .pontuacao-fase {
+            font-size: 1.6em;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .fase-analise.forte .pontuacao-fase {
+            color: #27ae60;
+        }
+
+        .fase-analise.medio .pontuacao-fase {
+            color: #f39c12;
+        }
+
+        .fase-analise.fraco .pontuacao-fase {
+            color: #e74c3c;
+        }
+
+        .fase-analise .classificacao {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .fase-analise.forte .classificacao {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .fase-analise.medio .classificacao {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .fase-analise.fraco .classificacao {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .recomendacoes-section {
+            background: #fafafa;
+        }
+
+        .recomendacoes-card {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .pontos-fortes,
+        .pontos-fracos {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .pontos-fortes h3 {
+            color: #27ae60;
+        }
+
+        .pontos-fracos h3 {
+            color: #e67e22;
+        }
+
+        .pontos-fortes ul,
+        .pontos-fracos ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .pontos-fortes li,
+        .pontos-fracos li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .pontos-fortes li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .pontos-fracos li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #e67e22;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .acoes-section {
+            text-align: center;
+            background: white;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            margin: 8px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            color: white;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9em;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            .acoes-section {
+                display: none;
+            }
+
+            .input-group input {
+                border: 1px solid #ccc;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+
+            header {
+                padding: 20px 15px;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .subtitle {
+                font-size: 1em;
+            }
+
+            .author {
+                font-size: 0.85em;
+            }
+
+            section {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+
+            .form-grid,
+            .scale-grid,
+            .analise-grid,
+            .recomendacoes-card {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group {
+                grid-template-columns: 70px 1fr;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.95em;
+                display: block;
+                width: 100%;
+                margin: 8px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌱 Protocolo de Avaliação da Transição Agroecológica</h1>
+            <p class="subtitle">Formulário para Técnicos de Extensão Rural</p>
+            <p class="author">Produzido por João Batista de Oliveira - jbatist7@gmail.com</p>
+        </header>
+
+        <section class="info-section">
+            <h2>Informações da Propriedade</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="propriedade">Nome da Propriedade:</label>
+                    <input type="text" id="propriedade" placeholder="Ex: Sítio Esperança">
+                </div>
+                <div class="form-group">
+                    <label for="agricultor">Nome do(s) Agricultor(es):</label>
+                    <input type="text" id="agricultor" placeholder="Ex: Maria da Silva e João Pereira">
+                </div>
+                <div class="form-group">
+                    <label for="data">Data da Avaliação:</label>
+                    <input type="date" id="data">
+                </div>
+                <div class="form-group">
+                    <label for="tecnico">Técnico Responsável:</label>
+                    <input type="text" id="tecnico" placeholder="Seu nome">
+                </div>
+            </div>
+        </section>
+
+        <section class="scale-info">
+            <h3>Escala de Pontuação (0-5)</h3>
+            <div class="scale-grid">
+                <div class="scale-item"><strong>0:</strong> Prática inexistente</div>
+                <div class="scale-item"><strong>1:</strong> Conhecimento inicial</div>
+                <div class="scale-item"><strong>2:</strong> Fase inicial</div>
+                <div class="scale-item"><strong>3:</strong> Parcialmente implementada</div>
+                <div class="scale-item"><strong>4:</strong> Bem implementada</div>
+                <div class="scale-item"><strong>5:</strong> Totalmente consolidada</div>
+            </div>
+        </section>
+
+        <!-- Fase 1 -->
+        <section class="fase-section">
+            <h2 class="fase-title">Dimensão 1: Manejo da Fertilidade do Solo</h2>
+            <div class="indicadores">
+                <div class="indicador">
+                    <label>1.1. Cobertura permanente do solo (plantio direto, palhada, etc.)</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="1" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>1.2. Uso de adubação verde (leguminosas, etc.)</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="1" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>1.3. Produção e uso de composto orgânico/vermicomposto</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="1" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>1.4. Redução e eliminação de fertilizantes sintéticos</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="1" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>1.5. Autonomia na produção de fertilizantes (biofertilizantes, etc.)</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="1" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+            </div>
+            <div class="subtotal">
+                <strong>Pontuação Dimensão 1:</strong> <span id="total-fase-1">0</span> / 25
+            </div>
+        </section>
+
+        <!-- Fase 2 -->
+        <section class="fase-section">
+            <h2 class="fase-title">Dimensão 2: Manejo da Agrobiodiversidade</h2>
+            <div class="indicadores">
+                <div class="indicador">
+                    <label>2.1. Diversificação de culturas comerciais e de autoconsumo</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="2" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>2.2. Implementação de consórcios, policultivos e rotação de culturas</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="2" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>2.3. Presença e manejo de Sistemas Agroflorestais (SAFs)</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="2" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>2.4. Resgate, produção e armazenamento de sementes crioulas/variedades locais</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="2" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>2.5. Integração lavoura-pecuária-floresta</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="2" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+            </div>
+            <div class="subtotal">
+                <strong>Pontuação Dimensão 2:</strong> <span id="total-fase-2">0</span> / 25
+            </div>
+        </section>
+
+        <!-- Fase 3 -->
+        <section class="fase-section">
+            <h2 class="fase-title">Dimensão 3: Manejo Ecológico de Pragas e Doenças</h2>
+            <div class="indicadores">
+                <div class="indicador">
+                    <label>3.1. Redução e eliminação do uso de agrotóxicos</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="3" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>3.2. Uso de caldas naturais e biopesticidas</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="3" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>3.3. Práticas de controle biológico (preservação de inimigos naturais, etc.)</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="3" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>3.4. Manejo do ambiente para prevenção (plantas repelentes, barreiras, etc.)</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="3" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+            </div>
+            <div class="subtotal">
+                <strong>Pontuação Dimensão 3:</strong> <span id="total-fase-3">0</span> / 20
+            </div>
+        </section>
+
+        <!-- Fase 4 -->
+        <section class="fase-section">
+            <h2 class="fase-title">Dimensão 4: Gestão dos Recursos Naturais e Autonomia</h2>
+            <div class="indicadores">
+                <div class="indicador">
+                    <label>4.1. Práticas de conservação de água e solo</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="4" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>4.2. Preservação e recuperação de APPs e Reserva Legal</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="4" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>4.3. Uso de fontes de energia renovável</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="4" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>4.4. Gestão e tratamento de resíduos sólidos e efluentes</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="4" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+            </div>
+            <div class="subtotal">
+                <strong>Pontuação Dimensão 4:</strong> <span id="total-fase-4">0</span> / 20
+            </div>
+        </section>
+
+        <!-- Fase 5 -->
+        <section class="fase-section">
+            <h2 class="fase-title">Dimensão 5: Dimensão Social e Comercial</h2>
+            <div class="indicadores">
+                <div class="indicador">
+                    <label>5.1. Participação em feiras de agricultores, vendas diretas ou cestas (CSA)</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="5" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>5.2. Agregação de valor (processamento, embalagens, certificação)</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="5" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>5.3. Participação em associações, cooperativas ou redes de troca</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="5" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+                <div class="indicador">
+                    <label>5.4. Autonomia em relação a insumos externos (sementes, ração, etc.)</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="5" class="pontuacao" data-fase="5" placeholder="0-5">
+                        <input type="text" class="observacao" placeholder="Observações">
+                    </div>
+                </div>
+            </div>
+            <div class="subtotal">
+                <strong>Pontuação Dimensão 5:</strong> <span id="total-fase-5">0</span> / 20
+            </div>
+        </section>
+
+        <!-- Resultado -->
+        <section class="resultado-section">
+            <h2>Resultado da Avaliação</h2>
+            <div class="resultado-card">
+                <div class="resultado-item">
+                    <strong>Pontuação Total:</strong>
+                    <span id="pontuacao-total" class="valor-destaque">0</span>
+                </div>
+                <div class="resultado-item">
+                    <strong>Fase da Transição:</strong>
+                    <span id="fase-transicao" class="fase-badge">-</span>
+                </div>
+                <div class="resultado-item">
+                    <strong>Status:</strong>
+                    <p id="status-descricao" class="status-texto">Preencha o formulário para ver o resultado.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gráfico Radial -->
+        <section class="grafico-section">
+            <h2>Visualização por Dimensão</h2>
+            <canvas id="radarChart" width="400" height="400"></canvas>
+        </section>
+
+        <!-- Análise por Fase -->
+        <section class="analise-section">
+            <h2>Análise por Dimensão</h2>
+            <div id="analise-fases" class="analise-grid">
+                <!-- Será preenchido dinamicamente -->
+            </div>
+        </section>
+
+        <!-- Recomendações -->
+        <section class="recomendacoes-section">
+            <h2>Pontos Fortes e Recomendações</h2>
+            <div class="recomendacoes-card">
+                <div class="pontos-fortes">
+                    <h3>✅ Pontos Fortes</h3>
+                    <ul id="pontos-fortes-lista">
+                        <li>Preencha o formulário para ver os pontos fortes.</li>
+                    </ul>
+                </div>
+                <div class="pontos-fracos">
+                    <h3>⚠️ Pontos a Melhorar</h3>
+                    <ul id="pontos-fracos-lista">
+                        <li>Preencha o formulário para ver os pontos a melhorar.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botões de Ação -->
+        <section class="acoes-section">
+            <button onclick="gerarRelatorio()" class="btn btn-primary">📄 Gerar Relatório (Imprimir)</button>
+            <button onclick="limparFormulario()" class="btn btn-secondary">🔄 Limpar Formulário</button>
+        </section>
+
+        <footer>
+            <p>Protocolo desenvolvido por <strong>João Batista de Oliveira</strong> | Versão 1.0 | Outubro de 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // Configuração das fases (dimensões)
+        const fasesConfig = {
+            1: { nome: "Fertilidade do Solo", maxPontos: 25 },
+            2: { nome: "Agrobiodiversidade", maxPontos: 25 },
+            3: { nome: "Pragas e Doenças", maxPontos: 20 },
+            4: { nome: "Recursos Naturais", maxPontos: 20 },
+            5: { nome: "Social e Comercial", maxPontos: 20 }
+        };
+
+        let radarChartInstance = null;
+
+        // Atualizar cálculos quando houver mudança nos inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.pontuacao');
+            inputs.forEach(input => {
+                input.addEventListener('input', calcularTotais);
+            });
+            document.getElementById('data').valueAsDate = new Date();
+            inicializarGrafico();
+        });
+
+        function calcularTotais() {
+            let pontuacaoTotal = 0;
+            const fasesTotais = {};
+
+            for (let fase = 1; fase <= 5; fase++) {
+                const inputs = document.querySelectorAll(`.pontuacao[data-fase="${fase}"]`);
+                let totalFase = 0;
+
+                inputs.forEach(input => {
+                    const valor = parseInt(input.value) || 0;
+                    if (valor > 5) input.value = 5;
+                    if (valor < 0) input.value = 0;
+                    totalFase += parseInt(input.value) || 0;
+                });
+
+                fasesTotais[fase] = totalFase;
+                pontuacaoTotal += totalFase;
+
+                const spanFase = document.getElementById(`total-fase-${fase}`);
+                if (spanFase) {
+                    spanFase.textContent = totalFase;
+                }
+            }
+
+            document.getElementById('pontuacao-total').textContent = pontuacaoTotal;
+
+            const resultado = determinarFase(pontuacaoTotal);
+            document.getElementById('fase-transicao').textContent = resultado.fase;
+            document.getElementById('fase-transicao').style.background = resultado.cor;
+            document.getElementById('status-descricao').textContent = resultado.descricao;
+
+            analisarFases(fasesTotais);
+            gerarRecomendacoes(fasesTotais, pontuacaoTotal);
+            atualizarGrafico(fasesTotais);
+        }
+
+        function determinarFase(pontuacao) {
+            if (pontuacao >= 0 && pontuacao <= 25) {
+                return {
+                    fase: "Fase 1 - Inicial",
+                    cor: "#e74c3c",
+                    descricao: "A propriedade ainda é muito dependente do modelo convencional, mas já demonstra interesse e dá os primeiros passos na racionalização do uso de insumos. O foco é reduzir o impacto negativo das práticas convencionais."
+                };
+            } else if (pontuacao >= 26 && pontuacao <= 50) {
+                return {
+                    fase: "Fase 2 - Intermediária",
+                    cor: "#f39c12",
+                    descricao: "A substituição de insumos sintéticos por biológicos está em andamento. A família já domina algumas práticas agroecológicas, mas ainda precisa avançar na integração e no redesenho do sistema produtivo."
+                };
+            } else if (pontuacao >= 51 && pontuacao <= 75) {
+                return {
+                    fase: "Fase 3 - Avançada",
+                    cor: "#3498db",
+                    descricao: "A propriedade funciona com base em princípios ecológicos. O redesenho do agroecossistema está consolidado, com alta agrobiodiversidade e crescente autonomia na produção de insumos e sementes."
+                };
+            } else {
+                return {
+                    fase: "Fase 4 - Consolidada",
+                    cor: "#27ae60",
+                    descricao: "Além de um sistema produtivo autônomo e resiliente, a família estabeleceu vínculos sólidos com os consumidores, agregando valor ao produto e participando ativamente de uma rede socioeconômica local baseada na Agroecologia."
+                };
+            }
+        }
+
+        function analisarFases(fasesTotais) {
+            const container = document.getElementById('analise-fases');
+            container.innerHTML = '';
+
+            for (let fase = 1; fase <= 5; fase++) {
+                const pontos = fasesTotais[fase];
+                const maxPontos = fasesConfig[fase].maxPontos;
+                const percentual = (pontos / maxPontos) * 100;
+
+                let classificacao, classe;
+                if (percentual >= 70) {
+                    classificacao = "Ponto Forte";
+                    classe = "forte";
+                } else if (percentual >= 40) {
+                    classificacao = "Em Desenvolvimento";
+                    classe = "medio";
+                } else {
+                    classificacao = "Ponto Crítico";
+                    classe = "fraco";
+                }
+
+                const div = document.createElement('div');
+                div.className = `fase-analise ${classe}`;
+                div.innerHTML = `
+                    <h4>Dimensão ${fase}: ${fasesConfig[fase].nome}</h4>
+                    <div class="pontuacao-fase">${pontos} / ${maxPontos}</div>
+                    <div class="classificacao">${classificacao}</div>
+                `;
+                container.appendChild(div);
+            }
+        }
+
+        function gerarRecomendacoes(fasesTotais, pontuacaoTotal) {
+            const pontosFortes = [];
+            const pontosFracos = [];
+
+            for (let fase = 1; fase <= 5; fase++) {
+                const pontos = fasesTotais[fase];
+                const maxPontos = fasesConfig[fase].maxPontos;
+                const percentual = (pontos / maxPontos) * 100;
+                const nomeFase = fasesConfig[fase].nome;
+
+                if (percentual >= 70) {
+                    pontosFortes.push({
+                        fase: nomeFase,
+                        texto: gerarTextoForte(fase, pontos, maxPontos)
+                    });
+                } else if (percentual < 40) {
+                    pontosFracos.push({
+                        fase: nomeFase,
+                        texto: gerarTextoFraco(fase, pontos, maxPontos)
+                    });
+                }
+            }
+
+            const listaFortes = document.getElementById('pontos-fortes-lista');
+            const listaFracos = document.getElementById('pontos-fracos-lista');
+
+            if (pontosFortes.length > 0) {
+                listaFortes.innerHTML = pontosFortes.map(p => `<li><strong>${p.fase}:</strong> ${p.texto}</li>`).join('');
+            } else {
+                listaFortes.innerHTML = '<li>Continue trabalhando para consolidar as práticas agroecológicas na propriedade.</li>';
+            }
+
+            if (pontosFracos.length > 0) {
+                listaFracos.innerHTML = pontosFracos.map(p => `<li><strong>${p.fase}:</strong> ${p.texto}</li>`).join('');
+            } else {
+                listaFracos.innerHTML = '<li>Parabéns! A propriedade apresenta bom desempenho em todas as dimensões avaliadas.</li>';
+            }
+        }
+
+        function gerarTextoForte(fase, pontos, max) {
+            const textos = {
+                1: `Excelente manejo da fertilidade do solo (${pontos}/${max} pontos). A propriedade demonstra autonomia na produção de fertilizantes e práticas consolidadas de conservação do solo.`,
+                2: `Alta agrobiodiversidade (${pontos}/${max} pontos). A diversificação de culturas e a integração de componentes estão bem estabelecidas.`,
+                3: `Manejo ecológico de pragas consolidado (${pontos}/${max} pontos). A propriedade conseguiu reduzir ou eliminar agrotóxicos, utilizando controle biológico.`,
+                4: `Gestão exemplar dos recursos naturais (${pontos}/${max} pontos). A conservação de água, solo e áreas de preservação está bem implementada.`,
+                5: `Forte inserção social e comercial (${pontos}/${max} pontos). A participação em feiras e canais de venda direta está consolidada.`
+            };
+            return textos[fase] || `Desempenho excelente nesta dimensão (${pontos}/${max} pontos).`;
+        }
+
+        function gerarTextoFraco(fase, pontos, max) {
+            const textos = {
+                1: `Necessita atenção prioritária (${pontos}/${max} pontos). Inicie práticas de cobertura do solo, compostagem e redução de fertilizantes sintéticos.`,
+                2: `Baixa diversificação (${pontos}/${max} pontos). Planeje a introdução de novos cultivos, consórcios e sistemas agroflorestais.`,
+                3: `Dependência de agrotóxicos (${pontos}/${max} pontos). Inicie a transição com caldas naturais e práticas de manejo preventivo.`,
+                4: `Gestão ambiental deficiente (${pontos}/${max} pontos). Priorize a conservação de água e solo, recuperação de APPs e gestão de resíduos.`,
+                5: `Isolamento comercial e social (${pontos}/${max} pontos). Incentive a participação em feiras e associações locais.`
+            };
+            return textos[fase] || `Esta dimensão necessita de atenção e desenvolvimento (${pontos}/${max} pontos).`;
+        }
+
+        // Funções do gráfico radial
+        function inicializarGrafico() {
+            const canvas = document.getElementById('radarChart');
+            const ctx = canvas.getContext('2d');
+            desenharGrafico(ctx, [0, 0, 0, 0, 0]);
+        }
+
+        function atualizarGrafico(fasesTotais) {
+            const canvas = document.getElementById('radarChart');
+            const ctx = canvas.getContext('2d');
+            const valores = [
+                (fasesTotais[1] / fasesConfig[1].maxPontos) * 100,
+                (fasesTotais[2] / fasesConfig[2].maxPontos) * 100,
+                (fasesTotais[3] / fasesConfig[3].maxPontos) * 100,
+                (fasesTotais[4] / fasesConfig[4].maxPontos) * 100,
+                (fasesTotais[5] / fasesConfig[5].maxPontos) * 100
+            ];
+            desenharGrafico(ctx, valores);
+        }
+
+        function desenharGrafico(ctx, valores) {
+            const canvas = ctx.canvas;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = Math.min(centerX, centerY) - 60;
+            const labels = [
+                'Fertilidade\ndo Solo',
+                'Agrobiodiversidade',
+                'Pragas e\nDoenças',
+                'Recursos\nNaturais',
+                'Social e\nComercial'
+            ];
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Desenhar círculos de fundo
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1;
+            for (let i = 1; i <= 5; i++) {
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, (radius / 5) * i, 0, 2 * Math.PI);
+                ctx.stroke();
+            }
+
+            // Desenhar linhas radiais
+            const angleStep = (2 * Math.PI) / 5;
+            ctx.strokeStyle = '#e0e0e0';
+            for (let i = 0; i < 5; i++) {
+                const angle = angleStep * i - Math.PI / 2;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            }
+
+            // Desenhar polígono de dados
+            ctx.fillStyle = 'rgba(46, 204, 113, 0.3)';
+            ctx.strokeStyle = '#27ae60';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (let i = 0; i < 5; i++) {
+                const angle = angleStep * i - Math.PI / 2;
+                const value = valores[i] / 100;
+                const x = centerX + radius * value * Math.cos(angle);
+                const y = centerY + radius * value * Math.sin(angle);
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Desenhar pontos
+            ctx.fillStyle = '#27ae60';
+            for (let i = 0; i < 5; i++) {
+                const angle = angleStep * i - Math.PI / 2;
+                const value = valores[i] / 100;
+                const x = centerX + radius * value * Math.cos(angle);
+                const y = centerY + radius * value * Math.sin(angle);
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+
+            // Desenhar labels
+            ctx.fillStyle = '#2c3e50';
+            ctx.font = 'bold 12px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            for (let i = 0; i < 5; i++) {
+                const angle = angleStep * i - Math.PI / 2;
+                const labelRadius = radius + 35;
+                const x = centerX + labelRadius * Math.cos(angle);
+                const y = centerY + labelRadius * Math.sin(angle);
+                
+                const lines = labels[i].split('\n');
+                lines.forEach((line, index) => {
+                    ctx.fillText(line, x, y + (index - (lines.length - 1) / 2) * 14);
+                });
+            }
+        }
+
+        function gerarRelatorio() {
+            const propriedade = document.getElementById('propriedade').value;
+            const agricultor = document.getElementById('agricultor').value;
+
+            if (!propriedade || !agricultor) {
+                alert('Por favor, preencha pelo menos o nome da propriedade e do agricultor antes de gerar o relatório.');
+                return;
+            }
+
+            window.print();
+        }
+
+        function limparFormulario() {
+            if (confirm('Tem certeza que deseja limpar todos os dados do formulário?')) {
+                document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {
+                    input.value = '';
+                });
+                document.getElementById('data').valueAsDate = new Date();
+                calcularTotais();
+                alert('Formulário limpo com sucesso!');
+            }
+        }
+    </script>
+</body>
+</html>
+

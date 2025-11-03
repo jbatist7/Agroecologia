@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<title>Protocolo de Avaliação da Transição Agroecológica</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+.container {
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    min-height: 100vh;
+}
+    
+.chart-container {
+    position: relative;
+    margin: 3em auto;
+    max-width: 700px;
+    min-height: 200px;
+    max-height: 400px;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+h1 {
+    font-size: 20px;
+    margin-top: 24px;
+    margin-bottom: 20px;
+}
+h5 {
+    font-size: 16px;
+}
+:root {
+    --primary-color: #1a5d1e;
+    --secondary-color: #f0f8f0;
+    --text-color: #000;
+    --border-color: #666;
+    --header-bg: #f0f0f0;
+    --table-header-bg: #e0e0e0;
+    --button-bg: #1a5d1e;
+    --button-hover-bg: #0f3d12;
+    --danger-color: #d32f2f;
+    --warning-color: #ff8f00;
+    --success-color: #2e7d32;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px 0;
+    font-size: 16px;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+header {
+    background-color: var(--header-bg);
+    border-bottom: 2px solid var(--primary-color);
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+header h1 {
+    color: var(--primary-color);
+    margin: 0;
+    font-size: 2.2em;
+}
+
+header p {
+    margin-top: 5px;
+    font-size: 1.1em;
+    color: #000;
+}
+h2, h3, h4 {
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-top: 40px;
+    font-size: 20px;
+}
+.section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: var(--secondary-color);
+    border-left: 5px solid var(--primary-color);
+    border-radius: 5px;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.form-group input[type="text"], .form-group input[type="date"], .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #000;
+}
+
+.form-group textarea, .indicator-table textarea {
+    resize: vertical;
+    overflow-y: hidden;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 2px solid var(--border-color);
+    padding: 12px;
+    text-align: left;
+    color: #000;
+}
+th {
+    background-color: var(--table-header-bg);
+    font-weight: bold;
+    color: #000;
+}
+.indicator-table th:nth-child(1) {
+    width: 45%;
+}
+.indicator-table th:nth-child(2) {
+    width: 8%;
+}
+.indicator-table th:nth-child(3) {
+    width: 47%;
+}
+.indicator-table td:nth-child(3) {
+    width: 47%;
+}
+.indicator-table textarea {
+    width: 100%;
+    min-height: 60px;
+    resize: vertical;
+    overflow-y: hidden;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.score-select {
+    font-weight: bold;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    padding-right: 20px;
+}
+
+/* Seta personalizada para todos os navegadores */
+.score-select:after {
+    content: '▼';
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--primary-color);
+    font-size: 12px;
+}
+
+/* Remove seta padrão do Chrome */
+.score-select::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+/* Estilização específica para iOS */
+@supports (-webkit-touch-callout: none) {
+    .score-select {
+        -webkit-appearance: none;
+        -webkit-border-radius: 0;
+        border-radius: 4px;
+        background-image: none;
+        background-color: #fff;
+    }
+}
+
+/* Estilização para Firefox */
+.score-select::-moz-focus-inner {
+    border: 0;
+}
+
+.score-select::-ms-expand {
+    display: none;
+}
+
+.score-select option {
+    background-color: #fff;
+    color: #000;
+    padding: 8px;
+}
+
+/* Container para os botões de seleção */
+.score-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.score-option {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    background-color: #fff;
+    color: #000;
+}
+
+.score-option:hover {
+    background-color: var(--secondary-color);
+}
+
+.score-option:last-child {
+    border-bottom: none;
+}
+
+.score-guide {
+    font-size: 0.9em;
+    color: #000;
+    margin-top: 10px;
+}
+.score-guide ul {
+    padding-left: 20px;
+    margin: 0;
+}
+.score-guide li {
+    margin-bottom: 5px;
+}
+#report-section {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 5px;
+}
+#total-score-display {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+.phase-convencional {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+.phase-1 {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+.phase-2 {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+.phase-3 {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.phase-4 {
+    background-color: #cce5ff;
+    color: #004085;
+    border: 1px solid #b8daff;
+}
+.strengths-list, .weaknesses-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.strengths-list li {
+    background-color: var(--success-color);
+    color: white;
+    padding: 6px;
+    margin-bottom: 2px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.2;
+}
+.weaknesses-list li {
+    background-color: var(--danger-color);
+    color: white;
+    padding: 6px;
+    margin-bottom: 2px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.2;
+}
+.action-plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.action-plan-table th, .action-plan-table td {
+    border: 2px solid var(--border-color);
+    padding: 12px;
+    text-align: left;
+    vertical-align: top;
+    color: #000;
+}
+.action-plan-table th:nth-child(1) {
+    width: 40%;
+}
+.action-plan-table td:nth-child(1) {
+    width: 40%;
+}
+.action-plan-table textarea {
+    width: 100%;
+    min-height: 60px;
+    resize: vertical;
+    overflow-y: hidden;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Botões verdes */
+.print-button {
+    background-color: var(--button-bg);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.print-button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* Galeria de Fotos */
+.photo-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.photo-wrapper {
+    flex: 1;
+    min-width: 0;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+}
+
+.photo-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.delete-photo-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(255,0,0,0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Quadro de pontuação por dimensão */
+.dimension-scores {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.dimension-scores h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    font-size: 16px;
+}
+
+.dimension-scores table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.dimension-scores th, .dimension-scores td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.dimension-scores th {
+    background-color: #e9ecef;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    body {
+        padding: 10px 0;
+        overflow-x: scroll !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    .container {
+        width: 95%;
+        min-width: 800px;
+        padding: 10px;
+        overflow-x: visible;
+    }
+    
+    .indicator-table th:nth-child(1) {
+        width: 40%;
+    }
+    .indicator-table th:nth-child(2) {
+        width: 8%;
+    }
+    .indicator-table th:nth-child(3) {
+        width: 52%;
+    }
+    
+    .photo-wrapper {
+        flex: 0 0 calc(50% - 8px);
+        max-width: calc(50% - 8px);
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 98%;
+        min-width: 800px;
+        padding: 5px;
+        overflow-x: visible;
+    }
+    
+    .photo-wrapper {
+        flex: 0 0 100%;
+        max-width: 100%;
+        height: 250px;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+    }
+    
+    h2, h3, h4 {
+        font-size: 18px;
+    }
+}
+
+/* Estilos para impressão */
+@media print {
+    /* Oculta botões e elementos interativos */
+    .delete-photo-btn,
+    .form-group button,
+    .score-select,
+    .score-options,
+    #photo-upload-1, #photo-upload-2, #photo-upload-3 {
+        display: none !important;
+    }
+    
+    /* Mostra as anotações do técnico */
+    .indicator-table textarea {
+        display: block !important;
+        border: none !important;
+        background: transparent !important;
+        padding: 5px !important;
+        resize: none !important;
+        overflow: visible !important;
+        height: auto !important;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+    }
+    
+    /* Garante que as fotos apareçam na mesma linha */
+    .photo-gallery {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 15px !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+    }
+    
+    .photo-wrapper {
+        flex: 1 !important;
+        min-width: 0 !important;
+        height: 350px !important;
+        page-break-inside: avoid;
+    }
+    
+    /* Garante que a coluna 1 do plano de ação permita quebra de linha */
+    .action-plan-table td:nth-child(1) {
+        word-wrap: break-word !important;
+        white-space: pre-wrap !important;
+    }
+    
+    /* Adiciona quebras de página antes das seções solicitadas */
+    #evaluation-form {
+        page-break-before: always;
+    }
+    
+    #general-info {
+        page-break-before: always;
+    }
+    
+    #scoring-guide {
+        page-break-before: always;
+    }
+    
+    #report-section {
+        page-break-before: always;
+    }
+    
+    #action-plan {
+        page-break-before: always;
+    }
+    
+    .chart-container {
+        page-break-before: always;
+    }
+    
+    /* Garante que cada seção ocupe uma página */
+    #scoring-guide {
+        page-break-after: always;
+    }
+    
+    #report-section {
+        page-break-after: always;
+    }
+    
+    /* Ajustes de fonte para impressão */
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: PingFang SC;
+    }
+
+    h1 {
+        font-size: 1.87em;
+        line-height: 1.6;
+        margin-bottom: 0.5em;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 1.6em;
+        font-weight: 600;
+        margin-top: 1.3em;
+        margin-bottom: 0.8em;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0.5em;
+    }
+
+    h3 {
+        font-size: 1.2em;
+        font-weight: 600;
+        margin-top: 1em;
+        margin-bottom: 0.6em;
+    }
+
+    h4 {
+        font-size: 1.1em;
+        font-weight: 500;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+        font-style: normal;
+    }
+
+    h5 {
+        font-size: 1em;
+        font-weight: 500;
+        margin-bottom: 1.2em;
+    }
+
+    ul,
+    ol {
+        font-size: 1em;
+        font-weight: 400;
+        margin-bottom: 1.2em;
+        line-height: 1.8;
+    }
+
+    p {
+        font-size: 1em;
+        line-height: 1.8;
+        font-weight: 400;
+        margin-top: 0.8em;
+        margin-bottom: 0.8em;
+    }
+
+    blockquote {
+        padding: 1em 1.2em;
+    }
+
+    figcaption {
+        margin-top: 0.5em;
+        font-size: 0.8em;
+        font-weight: 400;
+        text-align: center;
+        font-style: normal;
+        color: #000;
+    }
+    
+    /* Ajuste para pontos fortes e fracos */
+    .strengths-list li, .weaknesses-list li {
+        color: #000 !important;
+        background-color: transparent !important;
+        padding: 2px 0 !important;
+        margin-bottom: 1px !important;
+        font-size: 12px !important;
+        line-height: 1.1 !important;
+    }
+    
+    /* Remove rodapé */
+    body:after {
+        display: none !important;
+    }
+    
+    @page {
+        margin: 1.5cm;
+        @bottom-center {
+            content: none;
+        }
+    }
+}
+</style>
+<link href="https://static.skywork.ai/fe/skywork-site-assets/styles/doc_reference_style.css?v=1977355750973947904" rel="stylesheet"/>
+</head>
+<body class="">
+<div class="container" style="overflow: hidden auto;">
+<header>
+<h1 id="section-1">Protocolo de Monitoramento da Transição Agroecológica (PMTA)</h1>
+<p>Ferramenta para diagnóstico e acompanhamento de propriedades familiares em transição.</p>
+<p>Formulário criado por João Batista - jbatist7@gmail.com</p>
+</header>
+<section class="section">
+<h2 id="section-1">Introdução e Metodologia</h2>
+<p>Este protocolo foi desenvolvido para auxiliar técnicos de extensão rural e agricultores familiares a diagnosticar, planejar e monitorar o processo de transição de um modelo de produção convencional para a Agroecologia. A transição é um caminho evolutivo em direção à sustentabilidade, autonomia e resiliência, e compreendê-la em fases ajuda a orientar as ações de forma mais eficaz.</p>
+<p>A consolidação dos dados se baseia em um sistema de pontuação (0 a 5) para um conjunto de indicadores-chave, distribuídos em seis dimensões do agroecossistema. A pontuação total permite identificar a fase de transição em que a propriedade se encontra, gerando um laudo detalhado com pontos fortes, desafios e recomendações.</p>
+<h4>As 4 Fases da Transição Agroecológica</h4>
+<p>O modelo adotado neste protocolo divide a transição em quatro fases principais, conforme adaptado das referências técnicas:</p>
+<ol>
+<li><strong>Fase 1 – Redução e Racionalização de Insumos:</strong> Caracteriza-se pela diminuição do uso de fertilizantes e agrotóxicos sintéticos, otimizando sua aplicação e buscando alternativas mais eficientes e menos impactantes. É o primeiro passo para diminuir a dependência externa e os custos de produção.</li>
+<li><strong>Fase 2 – Substituição de Insumos:</strong> Nesta fase, os insumos sintéticos são progressivamente substituídos por insumos de base orgânica e biológica, muitos deles produzidos na própria propriedade (ex: compostagem, biofertilizantes, caldas naturais). O foco é fortalecer os processos biológicos do solo.</li>
+<li><strong>Fase 3 – Redesenho do Agroecossistema:</strong> É a fase mais avançada de reestruturação produtiva. A propriedade é redesenhada para funcionar como um ecossistema complexo e integrado. Aumenta-se a agrobiodiversidade, integram-se componentes (lavoura, pecuária, floresta), e busca-se a máxima autonomia e resiliência, eliminando a própria necessidade de &#34;insumos&#34; externos.</li>
+<li><strong>Fase 4 – Consolidação e Vínculos com a Sociedade:</strong> O sistema produtivo está consolidado, com alta autonomia e resiliência ecológica. A família agricultora se fortalece e estabelece vínculos sociais diretos na gestão interna (equidade de genèro e geração) e com os consumidores, participando de feiras, redes de consumo, vendas institucionais e agregando valor à sua produção através da qualidade e da confiança, podendo buscar certificações participativas, a exemplo do selo de Organização de Controle Social (OCS).</li>
+</ol>
+</section>
+<section id="general-info">
+<h2 id="section-2">1. Informações Gerais da Propriedade</h2>
+<div class="form-group">
+<label for="propriedade">Local da Propriedade:</label>
+<input id="propriedade" name="propriedade" placeholder="Ex: Sítio Esperança" type="text"/>
+</div>
+<div class="form-group">
+<label for="agricultor">Agricultor(a)/Família:</label>
+<input id="agricultor" name="agricultor" placeholder="Ex: Maria da Silva e João Pereira" type="text"/>
+</div>
+<div class="form-group">
+<label for="data_vistoria">Data da Vistoria:</label>
+<input id="data_vistoria" name="data_vistoria" type="date" value="2025-10-12"/>
+</div>
+<div class="form-group">
+<label for="tecnico">Técnico(a) Responsável:</label>
+<input id="tecnico" name="tecnico" placeholder="Insira seu nome" type="text"/>
+</div>
+<div class="form-group">
+<label for="municipio">Município/UF:</label>
+<input id="municipio" name="municipio" placeholder="Ex: Garanhuns/PE" type="text"/>
+</div>
+
+<div class="form-group">
+  <label for="georef">Georreferenciamento (Latitude, Longitude):</label>
+  <input id="georef" name="georef" type="text" placeholder="Ex: -8.123456, -36.987654">
+  <button type="button" onclick="getLocation()" style="margin-top:8px;">Obter Localização Atual</button>
+  <small style="display:block; margin-top:5px; color:#555;">
+    O técnico pode preencher manualmente ou clicar no botão para capturar automaticamente.
+  </small>
+</div>
+
+</section>
+<section id="evaluation-form">
+<h2 id="section-3">2. Formulário de Avaliação de Práticas Agroecológicas</h2>
+<p>Para cada indicador abaixo, atribua uma nota de 0 a 5 com base na sua percepção técnica durante a visita. Utilize o guia de pontuação para orientar sua decisão e adicione comentários detalhados.</p>
+<form id="agroecology-form">
+<fieldset>
+<legend><h3 id="section-3-1">A. Dimensão: Manejo do Solo e da Fertilidade</h3></legend>
+<table class="indicator-table">
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Pontuação (0-5)</th>
+<th>Observações do Técnico</th>
+</tr>
+</thead>
+<tbody>
+<!-- Indicador 1 -->
+<tr>
+<td>
+<strong>A1. Cobertura do Solo</strong>
+<div class="score-guide">
+<ul>
+<li>0: Solo permanentemente descoberto e exposto.</li>
+<li>1: Cobertura parcial com restos culturais, mas com longos períodos de exposição.</li>
+<li>2: Uso incipiente de plantas de cobertura ou adubação verde em pequenas áreas.</li>
+<li>3: Adoção de plantio direto ou cultivo mínimo na maior parte da área produtiva.</li>
+<li>4: Uso constante e diversificado de plantas de cobertura (coquetéis) e/ou adubação verde.</li>
+<li>5: Sistema com cobertura permanente e viva do solo (ex: consórcios densos, SAFs).</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="A1. Cobertura do Solo">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <div class="score-options" id="options-A1. Cobertura do Solo"></div>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Descreva as práticas observadas, áreas, espécies utilizadas..."></textarea></td>
+</tr>
+<!-- Indicador 2 -->
+<tr>
+<td>
+<strong>A2. Ciclagem total de nutrientes e fim de Adubos Químicos Sintéticos (NPK)</strong>
+<div class="score-guide">
+<ul>
+<li>0: Uso intensivo e calendarizado de adubos sintéticos em todas as culturas.</li>
+<li>1: Redução da dose recomendada ou aplicação mais localizada.</li>
+<li>2: Uso apenas em culturas mais exigentes ou em momentos críticos, combinado com adubos orgânicos.</li>
+<li>3: Uso eventual, apenas para &#34;socorrer&#34; a lavoura. A base da adubação é orgânica.</li>
+<li>4: Não utiliza mais adubos sintéticos, mas ainda compra adubos orgânicos externos.</li>
+<li>5: Fertilidade totalmente mantida pelo sistema (ciclagem de nutrientes, adubação verde, etc.).</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="A2. Uso de Adubos Químicos">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <div class="score-options" id="options-A2. Uso de Adubos Químicos"></div>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Quais formulações, doses, frequência? Há análise de solo?"></textarea></td>
+</tr>
+<!-- Indicador 3 -->
+<tr>
+<td>
+<strong>A3. Produção e Uso de Compostos/Biofertilizantes</strong>
+<div class="score-guide">
+<ul>
+<li>0: Não produz nem utiliza nenhum tipo de composto ou biofertilizante.</li>
+<li>1: Junta esterco ou restos de capina sem técnica de compostagem.</li>
+<li>2: Produz composto simples (leira estática) ou biofertilizante aeróbico.</li>
+<li>3: Produz composto de boa qualidade e/ou biofertilizantes (ex: Supermagro) que suprem parte significativa da demanda.</li>
+<li>4: Domina diferentes técnicas (compostagem, vermicompostagem, bokashi) e produz todo o necessário para a propriedade.</li>
+<li>5: A produção de fertilizantes orgânicos está totalmente integrada aos ciclos da propriedade, utilizando todos os resíduos disponíveis.</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="A3. Produção de Compostos">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <div class="score-options" id="options-A3. Produção de Compostos"></div>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Quais técnicas? Volume produzido? Qualidade?"></textarea></td>
+</tr>
+<!-- Indicador 4 -->
+<tr>
+<td>
+<strong>A4. Manejo da Compactação e Erosão do Solo</strong>
+<div class="score-guide">
+<ul>
+<li>0: Sinais severos de erosão (voçorocas, sulcos) e compactação. Nenhuma prática de conservação.</li>
+<li>1: Preocupação com o problema, mas poucas ações práticas.</li>
+<li>2: Adoção de práticas pontuais, como plantio em nível em algumas áreas.</li>
+<li>3: Implementação de curvas de nível, terraços ou barreiras de contenção na maior parte das áreas declivosas.</li>
+<li>4: Combinação de práticas mecânicas (curvas) e vegetativas (barreiras vivas, cordões) para controle total da erosão.</li>
+<li>5: O desenho do sistema (ex: SAFs em contorno) e a saúde do solo (estrutura) previnem naturalmente a erosão e a compactação.</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="A4. Manejo de Compactação/Erosão">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <div class="score-options" id="options-A4. Manejo de Compactação/Erosão"></div>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Observar presença de sulcos, voçorocas, solo adensado. Descrever práticas de conservação."></textarea></td>
+</tr>
+</tbody>
+</table>
+</fieldset>
+<fieldset>
+<legend><h3 id="section-3-2">B. Dimensão: Manejo da Agrobiodiversidade</h3></legend>
+<table class="indicator-table">
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Pontuação (0-5)</th>
+<th>Observações do Técnico</th>
+</tr>
+</thead>
+<tbody>
+<!-- Indicador 5 -->
+<tr>
+<td>
+<strong>B1. Diversificação de Culturas (Policultivos)</strong>
+<div class="score-guide">
+<ul>
+<li>0: Monocultura ou produção de apenas 2-3 espécies comerciais.</li>
+<li>1: Início de rotação de culturas.</li>
+<li>2: Rotação de culturas estabelecida e/ou consórcios simples (ex: milho com feijão).</li>
+<li>3: Presença de policultivos com 5 a 10 espécies diferentes na mesma área, com planejamento espacial e temporal.</li>
+<li>4: Sistemas produtivos altamente diversificados (hortas, pomares, lavouras) com mais de 15 espécies.</li>
+<li>5: Agrofloresta (SAF) complexa e multissistêmica, mimetizando um ecossistema natural.</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="B1. Diversificação de Culturas">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <div class="score-options" id="options-B1. Diversificação de Culturas"></div>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Listar as principais culturas e arranjos (consórcio, rotação, etc.)."></textarea></td>
+</tr>
+<!-- Indicador 6 -->
+<tr>
+<td>
+<strong>B2. Integração Lavoura-Pecuária-Floresta (ILPF)</strong>
+<div class="score-guide">
+<ul>
+<li>0: Componentes totalmente separados e sem sinergia.</li>
+<li>1: Uso do esterco animal na lavoura, mas sem manejo integrado.</li>
+<li>2: Pastoreio em área de pousio ou uso de restos culturais para alimentação animal.</li>
+<li>3: Sistema ILP ou IPF planejado, com sinergia entre os componentes (ex: pastagem consorciada).</li>
+<li>4: Sistema ILPF bem estabelecido, com benefícios claros para o solo, animais e culturas.</li>
+<li>5: Sistema agrossilvipastoril complexo, com alta ciclagem de nutrientes e bem-estar animal.</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="B2. Integração (ILPF)">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <div class="score-options" id="options-B2. Integração (ILPF)"></div>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Descrever como os componentes animal, agrícola e florestal se relacionam."></textarea></td>
+</tr>
+<!-- Indicador 7 -->
+<tr>
+<td>
+<strong>B3. Preservação e Enriquecimento da Vegetação Nativa (APPs, Reserva Legal)</strong>
+<div class="score-guide">
+<ul>
+<li>0: Áreas de preservação degradadas, desmatadas ou inexistentes.</li>
+<li>1: Áreas delimitadas, mas sem manejo ativo para recuperação.</li>
+<li>2: Isolamento das áreas e início de controle de fatores de degradação (fogo, gado).</li>
+<li>3: Ações ativas de recuperação (plantio de mudas nativas, controle de exóticas).</li>
+<li>4: Áreas em bom estado de conservação, com corredores ecológicos conectando fragmentos.</li>
+<li>5: A vegetação nativa está totalmente integrada à paisagem produtiva, fornecendo serviços ecossistêmicos (polinizadores, controle biológico).</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="B3. Preservação de Vegetação Nativa">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <div class="score-options" id="options-B3. Preservação de Vegetação Nativa"></div>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Estado de conservação das matas ciliares, nascentes, topos de morro."></textarea></td>
+</tr>
+</tbody>
+</table>
+</fieldset>
+<fieldset>
+<legend><h3 id="section-3-3">C. Dimensão: Manejo de Pragas e Doenças</h3></legend>
+<table class="indicator-table">
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Pontuação (0-5)</th>
+<th>Observações do Técnico</th>
+</tr>
+</thead>
+<tbody>
+<!-- Indicador 8 -->
+<tr>
+<td>
+<strong>C1. Sistema Equilibrado, Biodiversidade e Fim do Uso de Agroquímicos tóxicos.</strong>
+<div class="score-guide">
+<ul>
+<li>0: Uso intensivo e preventivo (calendarizado) de agrotóxicos.</li>
+<li>1: Uso apenas quando a praga/doença atinge um nível de dano (MIP), mas ainda como principal ferramenta.</li>
+<li>2: Eliminação de uma classe de agrotóxico (ex: herbicidas) e redução das demais.</li>
+<li>3: Uso de agrotóxicos apenas em último caso, priorizando caldas e biopesticidas.</li>
+<li>4: Eliminação total do uso de agrotóxicos sintéticos.</li>
+<li>5: O equilíbrio do sistema (biodiversidade, solo saudável) previne o surgimento de surtos de pragas/doenças.</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="C1. Uso de Agrotóxicos">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <div class="score-options" id="options-C1. Uso de Agrotóxicos"></div>
+        </select>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Quais produtos, frequência, culturas-alvo? Há eliminação de alguma classe (ex: herbicidas)?"></textarea></td>
+</tr>
+<!-- Indicador 9 -->
+<tr>
+<td>
+<strong>C2. Uso de Práticas Alternativas (Caldas, Controle Biológico)</strong>
+<div class="score-guide">
+<ul>
+<li>0: Desconhece ou não utiliza nenhuma prática alternativa.</li>
+<li>1: Uso experimental de uma ou duas receitas (ex: calda de fumo).</li>
+<li>2: Uso regular de caldas (bordalesa, sulfocálcica) e/ou extratos de plantas (nim).</li>
+<li>3: Produção e uso diversificado de caldas e biofertilizantes com ação defensiva.</li>
+<li>4: Manejo ativo do controle biológico (conservativo e/ou aumentativo), com áreas de refúgio para inimigos naturais.</li>
+<li>5: O manejo fitossanitário é baseado na promoção da saúde da planta e no equilíbrio ecológico, sem necessidade de intervenções curativas.</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="C2. Uso de Práticas Alternativas">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <div class="score-options" id="options-C2. Uso de Práticas Alternativas"></div>
+        </select>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Quais caldas/extratos são utilizados? Há conhecimento sobre inimigos naturais?"></textarea></td>
+</tr>
+</tbody>
+</table>
+</fieldset>
+<fieldset>
+<legend><h3 id="section-3-4">D. Dimensão: Manejo dos Recursos Hídricos e Energia</h3></legend>
+<table class="indicator-table">
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Pontuação (0-5)</th>
+<th>Observações do Técnico</th>
+</tr>
+</thead>
+<tbody>
+<!-- Indicador 10 -->
+<tr>
+<td>
+<strong>D1. Uso Racional e Conservação da Água</strong>
+<div class="score-guide">
+<ul>
+<li>0: Uso indiscriminado da água, irrigação por aspersão em horas quentes, sem medição.</li>
+<li>1: Preocupação com o desperdício, mas sem técnicas específicas.</li>
+<li>2: Adoção de irrigação mais eficiente (ex: gotejamento) em parte da área.</li>
+<li>3: Irrigação localizada e/ou baseada na necessidade da cultura em toda a área. Proteção de nascentes.</li>
+<li>4: Captação e armazenamento de água da chuva (cisternas, barragens) para uso produtivo.</li>
+<li>5: O sistema maximiza a infiltração de água no solo (solo esponjoso), reduzindo drasticamente a necessidade de irrigação.</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="D1. Uso Racional da Água">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <div class="score-options" id="options-D1. Uso Racional da Água"></div>
+        </select>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Tipo de irrigação, manejo, captação de água de chuva, proteção de nascentes."></textarea></td>
+</tr>
+<!-- Indicador 11 -->
+<tr>
+<td>
+<strong>D2. Uso de Energia e Combustíveis Fósseis</strong>
+<div class="score-guide">
+<ul>
+<li>0: Alta dependência de combustíveis fósseis (trator, motor) e energia da rede.</li>
+<li>1: Busca por otimizar o uso de máquinas para reduzir consumo.</li>
+<li>2: Uso de equipamentos de menor potência ou tração animal para algumas operações.</li>
+<li>3: Geração de parte da energia na propriedade (ex: painel solar para bomba d&#39;água, biodigestor simples).</li>
+<li>4: Geração de energia renovável que supre boa parte da demanda da propriedade.</li>
+<li>5: Propriedade autossuficiente em energia ou com balanço energético positivo.</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="D2. Uso de Energia">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <div class="score-options" id="options-D2. Uso de Energia"></div>
+        </select>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Fontes de energia, dependência de diesel/gasolina, uso de energias renováveis."></textarea></td>
+</tr>
+</tbody>
+</table>
+</fieldset>
+<fieldset>
+<legend><h3 id="section-3-5">E. Dimensão: Autonomia e Dependência Externa</h3></legend>
+<table class="indicator-table">
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Pontuação (0-5)</th>
+<th>Observações do Técnico</th>
+</tr>
+</thead>
+<tbody>
+<!-- Indicador 12 -->
+<tr>
+<td>
+<strong>E1. Autonomia de Sementes e Mudas</strong>
+<div class="score-guide">
+<ul>
+<li>0: Compra 100% das sementes e mudas (híbridas/transgênicas).</li>
+<li>1: Guarda sementes de algumas variedades de polinização aberta (milho, feijão).</li>
+<li>2: Produz as próprias sementes para a maioria das culturas anuais e/ou produz as próprias mudas de hortaliças.</li>
+<li>3: Possui e maneja um banco de sementes crioulas, garantindo a reprodução para o ano seguinte.</li>
+<li>4: Além de produzir para si, troca sementes com outros agricultores em feiras e redes.</li>
+<li>5: É um guardião de sementes, multiplicando e disseminando ativamente a agrobiodiversidade local.</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="E1. Autonomia de Sementes">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <div class="score-options" id="options-E1. Autonomia de Sementes"></div>
+        </select>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Origem das sementes (compradas, próprias, crioulas)? Produz mudas?"></textarea></td>
+</tr>
+<!-- Indicador 13 -->
+<tr>
+<td>
+<strong>E2. Dependência de Insumos Externos (Fertilizantes, Rações, etc.)</strong>
+<div class="score-guide">
+<ul>
+<li>0: Compra todos os insumos (fertilizantes, defensivos, ração, etc.).</li>
+<li>1: Produz um tipo de insumo na propriedade (ex: esterco).</li>
+<li>2: Produz parte significativa dos fertilizantes (composto) e/ou parte da alimentação animal.</li>
+<li>3: A maior parte da fertilidade e da alimentação animal é gerada internamente. Compras são pontuais.</li>
+<li>4: Praticamente autossuficiente em insumos, com alta ciclagem de nutrientes e matéria.</li>
+<li>5: O sistema é tão integrado que o conceito de &#34;insumo&#34; desaparece, sendo substituído por &#34;processos e ciclos&#34;.</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="E2. Dependência de Insumos">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <div class="score-options" id="options-E2. Dependência de Insumos"></div>
+        </select>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="O que ainda é comprado fora? Ração, adubos, defensivos, substratos?"></textarea></td>
+</tr>
+</tbody>
+</table>
+</fieldset>
+<fieldset>
+<legend><h3 id="section-3-6">F. Dimensão: Social, Comercialização e Gestão</h3></legend>
+<table class="indicator-table">
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Pontuação (0-5)</th>
+<th>Observações do Técnico</th>
+</tr>
+</thead>
+<tbody>
+<!-- Indicador 14 -->
+<tr>
+<td>
+<strong>F1. Canais de Comercialização</strong>
+<div class="score-guide">
+<ul>
+<li>0: Venda total para um único atravessador ou cooperativa convencional.</li>
+<li>1: Vende para mais de um atravessador ou busca mercados locais informais.</li>
+<li>2: Participa de feira livre municipal, vendendo diretamente ao consumidor.</li>
+<li>3: Vende em múltiplos canais curtos (feira, entrega de cestas, PNAA/PAA).</li>
+<li>4: Possui canais de comercialização consolidados e diversificados, com clientela fiel.</li>
+<li>5: Lidera ou participa ativamente de uma rede de consumo responsável ou possui Declaração de Controle Social(OCS).</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="F1. Canais de Comercialização">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <div class="score-options" id="options-F1. Canais de Comercialização"></div>
+        </select>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Para quem vende? Feiras, atravessador, PNAA, cestas?"></textarea></td>
+</tr>
+<!-- Indicador 15 -->
+<tr>
+<td>
+<strong>F2. Agregação de Valor e Processamento</strong>
+<div class="score-guide">
+<ul>
+<li>0: Vende 100% da produção in natura.</li>
+<li>1: Realiza beneficiamento mínimo (lavar, embalar).</li>
+<li>2: Processa parte da produção de forma artesanal para consumo próprio (polpa, compota).</li>
+<li>3: Processa e vende produtos beneficiados (geleias, pães, queijos) de forma regular.</li>
+<li>4: Possui uma pequena agroindústria familiar legalizada, com rótulo e marca própria.</li>
+<li>5: Produtos processados são reconhecidos no mercado pela sua qualidade e identidade territorial.</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="F2. Agregação de Valor">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <div class="score-options" id="options-F2. Agregação de Valor"></div>
+        </select>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this campo está com problemas no celular, não permite zoom nem movimento horizontal para acessar todos os tópicos para preenchimento. Precisa permitir zoom e movimento horizontal para acessar todos os tópicos para preenchimento.&#39;;" placeholder="Há processamento de produtos? Quais? Estão legalizados?"></textarea></td>
+</tr>
+<!-- Indicador 16 -->
+<tr>
+<td>
+<strong>F3. Organização Social e Troca de Conhecimentos</strong>
+<div class="score-guide">
+<ul>
+<li>0: Família isolada, não participa de nenhuma organização.</li>
+<li>1: Participa de reuniões da comunidade, mas sem envolvimento com associações.</li>
+<li>2: É membro de uma associação de produtores, mas com participação passiva.</li>
+<li>3: Participa ativamente da associação, de mutirões e trocas de experiências.</li>
+<li>4: Ocupa cargos de liderança na associação ou organiza eventos (dias de campo, feiras de sementes).</li>
+<li>5: É referência na comunidade, disseminando ativamente conhecimentos e práticas agroecológicas.</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="F3. Organização Social">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <div class="score-options" id="options-F3. Organização Social"></div>
+        </select>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Participa de associação, sindicato, grupo de troca? Frequência?"></textarea></td>
+</tr>
+<!-- Indicador 17 -->
+<tr>
+<td>
+<strong>F4. Gestão da Propriedade e Planejamento</strong>
+<div class="score-guide">
+<ul>
+<li>0: Nenhuma anotação de custos ou planejamento de safra.</li>
+<li>1: Anotações informais de gastos e vendas.</li>
+<li>2: Utiliza um caderno agrícola para registrar custos, produção e vendas de forma sistemática.</li>
+<li>3: Realiza planejamento anual da produção com base nos registros e na demanda do mercado.</li>
+<li>4: Utiliza alguma ferramenta de gestão (planilhas, caderneta agroecológica, aplicativos) para análise de custos, rentabilidade e tomada de decisão.</li>
+<li>5: A gestão é participativa (envolve a família), e o planejamento integra as dimensões econômica, ecológica e social.</li>
+</ul>
+</div>
+</td>
+<td>
+    <div class="score-select-wrapper">
+        <select class="score-select" data-indicator="F4. Gestão da Propriedade">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <div class="score-options" id="options-F4. Gestão da Propriedade"></div>
+        </select>
+    </div>
+</td>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Como é feito o controle de custos e receitas? Há planejamento?"></textarea></td>
+</tr>
+</tbody>
+</table>
+</fieldset>
+</form>
+</section>
+<section id="scoring-guide">
+<h2 id="section-4">3. Gabarito de Pontuação e Diagnóstico da Fase</h2>
+<p>A pontuação total, calculada a partir da soma das notas de todos os 17 indicadores (Pontuação Máxima = 17 x 5 = 85), situa a propriedade em uma das fases da transição agroecológica. Utilize a tabela abaixo como referência para o diagnóstico.</p>
+<table class="" id="phase-table">
+<thead>
+<tr>
+<th>Pontuação Total</th>
+<th>Fase da Transição</th>
+<th>Características Principais</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 - 15</td>
+<td class="phase-convencional"><strong>Convencional</strong></td>
+<td>Alta dependência de insumos externos (químicos e sementes comerciais), monocultura ou baixa diversidade, solo frequentemente descoberto, foco na venda para atravessadores.</td>
+</tr>
+<tr>
+<td>16 - 35</td>
+<td class="phase-1"><strong>Fase 1: Racionalização</strong></td>
+<td>Início da redução do uso de agrotóxicos e adubos sintéticos. Primeiras experiências com adubação orgânica e rotação de culturas. A estrutura produtiva ainda é muito similar à convencional.</td>
+</tr>
+<tr>
+<td>36 - 55</td>
+<td class="phase-2"><strong>Fase 2: Substituição</strong></td>
+<td>Adoção consolidada de insumos biológicos e orgânicos, muitos produzidos na propriedade (compostagem, caldas). Eliminação de algumas classes de agrotóxicos (ex: herbicidas). Aumento da diversificação e início da comercialização em feiras.</td>
+</tr>
+<tr>
+<td>56 - 75</td>
+<td class="phase-3"><strong>Fase 3: Redesenho</strong></td>
+<td>A propriedade é redesenhada com base em princípios ecológicos e envolve toda a família. Implantação de sistemas complexos como policultivos e agroflorestas (SAFs). Alta autonomia de insumos e sementes. Práticas de conservação de solo e água bem estabelecidas.</td>
+</tr>
+<tr>
+<td>76 - 85</td>
+<td class="phase-4"><strong>Fase 4: Consolidação</strong></td>
+<td>Sistema produtivo resiliente, autônomo e diversificado. Fortes vínculos com consumidores através de canais de comercialização direta e redes de confiança. A família é referência em agroecologia na sua comunidade.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="report-section">
+<h2 id="section-5">4. Laudo Técnico Preliminar</h2>
+<p>Esta seção é gerada automaticamente com base nas pontuações inseridas no formulário. O técnico deve revisar, editar e complementar as informações para finalizar o laudo.</p>
+<div class="phase-convencional" id="total-score-display">Pontuação Total: 0/85 <br/> <strong>Fase Identificada: Convencional</strong></div>
+
+<!-- Quadro de pontuação por dimensão -->
+<div class="dimension-scores">
+    <h4>Pontuação por Dimensão</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Dimensão</th>
+                <th>Pontuação Obtida</th>
+                <th>Pontuação Máxima</th>
+                <th>Porcentagem</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Manejo do Solo</td>
+                <td id="score-soil">0</td>
+                <td>20</td>
+                <td id="percent-soil">0%</td>
+            </tr>
+            <tr>
+                <td>Agrobiodiversidade</td>
+                <td id="score-biodiversity">0</td>
+                <td>15</td>
+                <td id="percent-biodiversity">0%</td>
+            </tr>
+            <tr>
+                <td>Manejo de Pragas</td>
+                <td id="score-pests">0</td>
+                <td>10</td>
+                <td id="percent-pests">0%</td>
+            </tr>
+            <tr>
+                <td>Recursos Hídricos/Energia</td>
+                <td id="score-water">0</td>
+                <td>10</td>
+                <td id="percent-water">0%</td>
+            </tr>
+            <tr>
+                <td>Autonomia</td>
+                <td id="score-autonomy">0</td>
+                <td>10</td>
+                <td id="percent-autonomy">0%</td>
+            </tr>
+            <tr>
+                <td>Social/Comercialização</td>
+                <td id="score-social">0</td>
+                <td>20</td>
+                <td id="percent-social">0%</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="chart-container">
+<h4>Análise por Dimensão</h4>
+<p>O gráfico abaixo mostra a pontuação relativa em cada dimensão avaliada, permitindo identificar rapidamente as áreas mais e menos avançadas no processo de transição.</p>
+<div _echarts_instance_="ec_1760361355230" data-sk-source-container="chart" data-sk-source-id="1977353385471336448" data-sk-source-type="pdf" id="dimension-chart" sk-source-uniq-id="sk-source-tag-17" style="width: 100%; height: 400px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;"><div style="position: relative; width: 535px; height: 400px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" height="432" style="position: absolute; left: 0px; top: 0px; width: 535px; height: 400px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;" width="577"></canvas></div><div class=""></div></div>
+</div>
+<div class="report-subsection">
+<h4>Pontos Fortes Identificados</h4>
+<p>Práticas e características da propriedade que já demonstram um avanço significativo na transição agroecológica (indicadores com nota 4 ou 5):</p>
+<ul class="strengths-list" id="strengths-list"><li>Nenhum ponto forte identificado ainda.</li></ul>
+</div>
+<div class="report-subsection">
+<h4>Desafios e Pontos a Melhorar</h4>
+<p>Práticas e características que representam os principais gargalos para o avanço da transição (indicadores com nota 0, 1 ou 2):</p>
+<ul class="weaknesses-list" id="weaknesses-list"><li>A1. Cobertura do Solo (Nota: 0)</li><li><li>A2. Uso de Adubos Químicos (Nota: 0)</li><li><li>A3. Produção de Compostos (Nota: 0)</li><li><li>A4. Manejo de Compactação/Erosão (Nota: 0)</li><li><li>B1. Diversificação de Culturas (Nota: 0)</li><li><li>B2. Integração (ILPF) (Nota: 0)</li><li>B3. (Nota: 0)</li><li><li>C1. Uso de Agrotóxicos (Nota: 0)</li><li><li>C2. Uso de Práticas Alternativas (Nota: 0)</li><li><li>D1. Uso Racional da Água (Nota: 0)</li><li><li>D2. Uso de Energia (Nota: 0)</li><li><li>E1. Autonomia de Sementes (Nota: 0)</li><li><li>E2. Dependência de Insumos (Nota: 0)</li><li><li>F1. Canais de Comercialização (Nota: 0)</li><li><li>F2. Agregação de Valor (Nota: 0)</li><li><li>F3. Organização Social (Nota: 0)</li><li><li>F4. Gestão da Propriedade (Nota: 0)</li></ul>
+</div>
+<div class="report-subsection">
+<h4>Recomendações Técnicas</h4>
+<div class="form-group">
+<label for="recommendations">Com base no diagnóstico, descreva as recomendações prioritárias para a família:</label>
+<textarea id="recommendations" oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Ex: Para o desafio &#39;Baixa diversidade de culturas&#39;, recomenda-se iniciar um consórcio de milho com feijão-de-porco na próxima safra para adubação verde. Para o &#39;Solo compactado&#39;, sugere-se o uso de um subsolador ou a introdução de plantas com sistema radicular agressivo..."></textarea>
+</div>
+</div>
+</section>
+<section id="action-plan">
+<h2 id="section-6">5. Plano de Ação Conjunto</h2>
+<p>Definir junto com a família as próximas ações, responsáveis e prazos para dar continuidade ao processo de transição.</p>
+<table class="action-plan-table">
+<thead>
+<tr>
+<th>Ação Proposta</th>
+<th>Responsável (Técnico/Agricultor)</th>
+<th>Prazo</th>
+<th>Recursos Necessários</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Ex: Construir uma nova leira de compostagem"></textarea></td>
+<td><input placeholder="João Pereira" type="text"/></td>
+<td><input placeholder="30 dias" type="text"/></td>
+<td><input placeholder="Esterco, palhada, mão de obra" type="text"/></td>
+</tr>
+<tr>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="Ex: Implantar 1ha de adubação verde"></textarea></td>
+<td><input placeholder="Técnico e Família" type="text"/></td>
+<td><input placeholder="Próximo plantio" type="text"/></td>
+<td><input placeholder="Sementes de crotalária/feijão-de-porco" type="text"/></td>
+</tr>
+<tr>
+<td><textarea oninput="this.style.height = &#39;auto&#39;; this.style.height = (this.scrollHeight) + &#39;px&#39;;" placeholder="..."></textarea></td>
+<td><input placeholder="..." type="text"/></td>
+<td><input placeholder="..." type="text"/></td>
+<td><input placeholder="..." type="text"/></td>
+<td><input placeholder="..." type="text"/></td>
+</tr>
+</tbody>
+</table>
+<h4 style="margin-top: 30px;">Adicionar Fotos da Propriedade (Opcional)</h4>
+<div>
+<input accept="image/*" id="photo-upload-1" style="display: none;" type="file"/>
+<button class="print-button" onclick="document.getElementById(&#39;photo-upload-1&#39;).click();" style="width: auto; padding: 10px 15px; margin: 5px;" type="button">Adicionar Foto 1</button>
+<input accept="image/*" id="photo-upload-2" style="display: none;" type="file"/>
+<button class="print-button" onclick="document.getElementById(&#39;photo-upload-2&#39;).click();" style="width: auto; padding: 10px 15px; margin: 5px;" type="button">Adicionar Foto 2</button>
+<input accept="image/*" id="photo-upload-3" style="display: none;" type="file"/>
+<button class="print-button" onclick="document.getElementById(&#39;photo-upload-3&#39;).click();" style="width: auto; padding: 10px 15px; margin: 5px;" type="button">Adicionar Foto 3</button>
+</div>
+<div class="photo-gallery" id="photo-gallery"></div>
+</section>
+
+<button class="print-button" onclick="window.print()" style="width: 250px; padding: 10px 15px; margin: 5px auto; display: block;">Imprimir / Salvar Laudo em PDF</button>
+
+<p style="text-align: center; margin-top: 30px; font-size: 12px; color: #666;">Formulário desenvolvido por João Batista - jbatist7@gmail.com</p>
+
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const form = document.getElementById('agroecology-form');
+        const scoreSelects = form.querySelectorAll('.score-select');
+        const totalScoreDisplay = document.getElementById('total-score-display');
+        const strengthsList = document.getElementById('strengths-list');
+        const weaknessesList = document.getElementById('weaknesses-list');
+        
+        const phaseTable = {
+            convencional: { range: [0, 15], text: 'Convencional', class: 'phase-convencional' },
+            fase1: { range: [16, 35], text: 'Fase 1: Racionalização', class: 'phase-1' },
+            fase2: { range: [36, 55], text: 'Fase 2: Substituição', class: 'phase-2' },
+            fase3: { range: [56, 75], text: 'Fase 3: Redesenho', class: 'currentPhase.class: 'phase-3' },
+            fase4: { range: [76, 85], text: 'Fase 4: Consolidação', class: 'phase-4' }
+        };
+
+        const dimensions = {
+            'A': { name: 'Manejo do Solo', maxScore: 20, score: 0 },
+            'B': { name: 'Agrobiodiversidade', maxScore: 15, score: 0 },
+            'C': { name: 'Manejo de Pragas', maxScore: 10, score: 0 },
+            'D': { name: 'Recursos Hídricos/Energia', maxScore: 10, score: 0 },
+            'E': { name: 'Autonomia', maxScore: 10, score: 0 },
+            'F': { name: 'Social/Comercialização', maxScore: 20, score: 0 }
+        };
+
+        // ECharts initialization
+        var chartDom = document.getElementById('dimension-chart');
+        var myChart = echarts.init(chartDom);
+        var option = {
+            tooltip: {},
+            radar: {
+                indicator: Object.values(dimensions).map(d => ({ name: d.name, max: 5 })),
+                radius: '65%',
+                axisName: {
+                    color: '#000',
+                    fontSize: 12
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#ccc'
+                    }
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: '#ddd',
+                        type: 'dashed'
+                    }
+                },
+                splitArea: {
+                    areaStyle: {
+                        color: ['rgba(255,255,255,255,0.3)', 'rgba(200,200,200,0.3)']
+                    }
+                }
+            },
+            series: [{
+                name: 'Desempenho',
+                type: 'radar',
+                data: [{
+                    value: [0, 0, 0, 0, 0, 0],
+                    name: 'Desempenho',
+                    lineStyle: {
+                        color: '#1a5d1e'
+                    },
+                    areaStyle: {
+                        color: 'rgba(26, 93, 30, 0.2)'
+                    }
+                }]
+            }]
+        };
+        myChart.setOption(option);
+
+        function updateScores() {
+            let totalScore = 0;
+            let strengths = [];
+            let weaknesses = [];
+
+            // Reset dimension scores
+            for (const key in dimensions) {
+                dimensions[key].score = 0;
+            }
+
+            scoreSelects.forEach(select => {
+                const score = parseInt(select.value);
+                const indicatorName = select.dataset.indicator;
+                const dimensionKey = indicatorName.charAt(0);
+
+                totalScore += score;
+                dimensions[dimensionKey].score += score;
+
+                if (score >= 4) {
+                    strengths.push(`${indicatorName} (Nota: ${score})`);
+                } else if (score <= 2) {
+                    weaknesses.push(`${indicatorName} (Nota: ${score})`);
+                }
+            });
+
+            updateReport(totalScore, strengths, weaknesses);
+            updateChart();
+            updateDimensionScores();
+        }
+
+        function updateReport(score, strengths, weaknesses) {
+            let currentPhase = null;
+            for (const key in phaseTable) {
+                if (score >= phaseTable[key].range[0] && score <= phaseTable[key].range[1]) {
+                    currentPhase = phaseTable[key];
+                    break;
+                }
+            }
+
+            if (currentPhase) {
+                totalScoreDisplay.innerHTML = `Pontuação Total: ${score}/85 <br> <strong>Fase Identificada: ${currentPhase.text}</strong>`;
+                totalScoreDisplay.className = currentPhase.class;
+            } else {
+                totalScore display.innerHTML = 'Aguardando preenchimento do formulário...';
+                totalScoreDisplay.className = '';
+            }
+
+            strengthsList.innerHTML = strengths.length > 0 ? strengths.map(s => `<li>${s}</li>`).join('') : '<li>Nenhum ponto forte identificado ainda.</li>';
+            weaknessesList.innerHTML = weaknesses.length > 0 ? weaknesses.map(w => `<li>${w}</li>`).join('') : '<li>Nenhum desafio identificado ainda.</li>';
+        }
+
+        function updateChart() {
+            const chartData = Object.values(dimensions).map(d => (d.score / d.maxScore * 5).toFixed(2));
+            myChart.setOption({
+                series: [{
+                    data: [{
+                        value: chartData
+                    }]
+                }]
+            });
+        }
+
+        function updateDimensionScores() {
+            // Atualiza a tabela de pontuação por dimensão
+            document.getElementById('score-soil').textContent = dimensions['A'].score;
+            document.getElementById('percent-soil').textContent = Math.round(dimensions['A'].score / dimensions['A'].maxScore * 100) + '%';
+            
+            document.getElementById('score-biodiversity').textContent = dimensions['B'].score;
+            document.getElementById('percent-biodiversity').textContent = Math.round(dimensions['B'].score / dimensions['B'].maxScore * 100) + '%';
+            
+            document.getElementById('score-pests').textContent = dimensions['C'].score;
+            document.getElementById('percent-pests').textContent = Math.round(dimensions['C'].score / dimensions['C'].maxScore * 100) + '%';
+            
+            document.getElementById('score-water').textContent = dimensions['D'].score;
+            document.getElementById('percent-water').textContent = Math.round(dimensions['D'].score / dimensions['D'].maxScore * 100) + '%';
+            
+            document.getElementById('score-autonomy').textContent = dimensions['E'].score;
+            document.getElementById('percent-autonomy').textContent = Math.round(dimensions['E'].score / dimensions['E'].maxScore * 100) + '%';
+            
+            document.getElementById('score-social').textContent = dimensions['F'].score;
+            document.getElementById('percent-social').textContent = Math.round(dimensions['F'].score / dimensions['F'].maxScore * 100) + '%';
+        }
+
+        // Função para obter localização
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById("georef").value = "Geolocalização não é suportada por este navegador.";
+            }
+        }
+
+        function showPosition(position) {
+            document.getElementById("georef").value = position.coords.latitude + ", " + position.coords.longitude;
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    document.getElementById("georef").value = "Usuário negou a solicitação de geolocalização."
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    document.getElementById("georef").value = "Informações de localização indisponíveis."
+                    break;
+                case error.TIMEOUT:
+                    document.getElementById("georef").value = "A solicitação de localização expirou."
+                    break;
+                case error.UNKNOWN_ERROR:
+                    document.getElementById("geolocation: 0");
+                    break;
+            }
+        }
+
+        // Função para upload de fotos
+        const photoGallery = document.getElementById('photo-gallery');
+        const photoInputs = [
+            document.getElementById('photo-upload-1'),
+            document.getElementById('photo-upload-2'),
+            document.getElementById('photo-upload-3')
+        ];
+
+        photoInputs.forEach(input => {
+            input.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const imgId = 'img-preview-' + input.id;
+                        const wrapperId = imgId + '-wrapper';
+                        let existingWrapper = document.getElementById(wrapperId);
+                        
+                        if (existingWrapper) {
+                            // Atualiza a imagem se já existir
+                            existingWrapper.querySelector('img').src = e.target.result;
+                        } else {
+                            // Cria um novo wrapper para a imagem
+                            const wrapper = document.createElement('div');
+                            wrapper.id = wrapperId;
+                            wrapper.className = 'photo-wrapper';
+                            
+                            const img = document.createElement('img');
+                            img.id = imgId;
+                            img.src = e.target.result;
+                            
+                            const deleteBtn = document.createElement('button');
+                            deleteBtn.className = 'delete-photo-btn';
+                            deleteBtn.innerHTML = '×';
+                            deleteBtn.onclick = function() {
+                                wrapper.remove();
+                                input.value = '';
+                            };
+                            
+                            wrapper.appendChild(img);
+                            wrapper.appendChild(deleteBtn);
+                            photoGallery.appendChild(wrapper);
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+        // Função para dropdowns personalizados
+        document.querySelectorAll('.score-select').forEach(select => {
+            const optionsId = 'options-' + select.dataset.indicator;
+            const optionsDiv = document.getElementById(optionsId);
+            
+            select.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Fecha outros dropdowns abertos
+                document.querySelectorAll('.score-options').forEach(opt => {
+                    if (opt !== optionsDiv) {
+                        opt.style.display = 'none';
+                    }
+                });
+                
+                // Abre o dropdown atual
+                if (optionsDiv) {
+                    optionsDiv.style.display = 'block';
+                }
+            });
+            
+            // Fecha o dropdown quando selecionar uma opção
+            select.addEventListener('change', function() {
+                if (optionsDiv) {
+                    optionsDiv.style.display = 'none';
+                }
+            });
+            
+            // Fecha o dropdown quando clicar fora
+            document.addEventListener('click', function(e) {
+                if (!select.contains(e.target)) {
+                    document.querySelectorAll('.score-options').forEach(opt => {
+                        opt.style.display = 'none';
+                    });
+                }
+            });
+        });
+
+        form.addEventListener('change', updateScores);
+        form.addEventListener('keyup', updateScores);
+    });
+</script>
+</body>
+</html>

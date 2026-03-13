@@ -318,54 +318,80 @@ th {
     }
 }
 
-/* --- NOVO BLOCO: CONTROLE DE SCROLL HORIZONTAL NO CELULAR --- */
+/* --- CONTROLE DE SCROLL HORIZONTAL NO CELULAR --- */
 @media screen and (max-width: 768px) {
-    /* Faz com que o contêiner (fieldset) da tabela tenha barra de rolagem se necessário */
-    fieldset {
-        overflow-x: auto; 
-        padding-bottom: 5px; /* Adiciona espaço para a barra de rolagem */
+    body, html {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        position: relative !important;
     }
-
-    /* Força a tabela a ter uma largura mínima, ativando o scroll no fieldset */
+    
+    .container {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    fieldset {
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-bottom: 10px !important;
+    }
+    
     .indicator-table {
-        min-width: 600px;
+        min-width: 650px !important;
+        display: block !important;
+    }
+    
+    .indicator-table textarea {
+        width: 250px !important;
+        max-width: 250px !important;
+        word-wrap: break-word !important;
+        overflow-x: hidden !important;
     }
 }
-
 
 @media print {
     body {
         box-shadow: none;
         margin: 0;
         padding: 0;
-        }
-
+    }
+    
     .container {
         width: 100%;
         max-width: none;
         box-shadow: none;
         margin: 0;
         padding: 0;
-        }
+    }
+    
     .print-button, header p {
         display: none;
-        }
+    }
+    
     header {
         padding: 10px 0;
-        }
+    }
+    
     .section {
         border-left: none;
         background-color: #fff;
         padding: 0;
         margin-bottom: 20px;
-        }
+    }
+    
     h2, h3, h4 {
         margin-top: 20px;
-        }
+    }
+    
     #report-section {
         border: none;
         padding: 0;
-        }
+    }
+}
+</style>
    
 
     .container {
@@ -488,9 +514,10 @@ th {
         border-radius: 8px;
     }
 }
+
 </style>
     
-<link href="https://static.skywork.ai/fe/skywork-site-assets/styles/doc_reference_style.css?v=1977355750973947904" rel="stylesheet"/></head>
+
 <body class="">
 <div class="container">
 <header>
@@ -1783,63 +1810,28 @@ function exportToCSV() {
 }
 
 (function() {
-    // Executa apenas em dispositivos móveis
     if (window.innerWidth <= 768) {
-        
         let scrollX = 0;
         let scrollY = 0;
-        
-        // Seleciona todos os textareas da tabela de indicadores
         const textareas = document.querySelectorAll('.indicator-table textarea');
         
         textareas.forEach(function(textarea) {
-            
-            // Ao focar: salva a posição atual do scroll
             textarea.addEventListener('focus', function() {
                 scrollX = window.scrollX || window.pageXOffset;
                 scrollY = window.scrollY || window.pageYOffset;
             });
-            
-            // Ao perder foco: restaura a posição horizontal
             textarea.addEventListener('blur', function() {
                 setTimeout(function() {
                     window.scrollTo(scrollX, window.scrollY);
                 }, 100);
             });
-            
-            // Ao digitar: mantém a posição horizontal travada
             textarea.addEventListener('input', function() {
                 window.scrollTo(scrollX, window.scrollY);
             });
-            
-            // Previne que o teclado virtual cause scroll indesejado
-            textarea.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    // Permite quebra de linha com Shift+Enter
-                    // Mas evita scroll ao pressionar Enter sozinho
-                    setTimeout(function() {
-                        window.scrollTo(scrollX, window.scrollY);
-                    }, 50);
-                }
-            });
         });
-        
-        // Correção extra: impede scroll horizontal ao tocar fora dos campos
-        document.addEventListener('touchmove', function(e) {
-            if (document.activeElement && 
-                document.activeElement.classList.contains('indicator-table') === false &&
-                document.activeElement.tagName === 'TEXTAREA' &&
-                document.activeElement.closest('.indicator-table')) {
-                // Permite scroll vertical, bloqueia horizontal
-                if (Math.abs(e.touches[0].pageX - e.touches[0].clientX) > 10) {
-                    e.preventDefault();
-                }
-            }
-        }, { passive: false });
     }
 })();
 </script>
 
-	
- 
-</body></html>
+</body>
+</html>

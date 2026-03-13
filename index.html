@@ -471,7 +471,35 @@ th {
         }
 	
 	
-	
+	/* --- CORREÇÃO SCROLL MOBILE --- */
+@media screen and (max-width: 768px) {
+    body, html {
+        overflow-x: hidden !important;
+        width: 100%;
+        position: relative;
+    }
+    
+    .container {
+        overflow-x: hidden !important;
+        width: 100%;
+    }
+    
+    fieldset {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .indicator-table {
+        min-width: 600px;
+        display: block;
+    }
+    
+    /* Impede que textarea cause scroll da página */
+    .indicator-table textarea {
+        max-width: 300px;
+        word-wrap: break-word;
+    }
+}
 	
 	
 	
@@ -1770,7 +1798,25 @@ function exportToCSV() {
     document.body.removeChild(link);
 }
 
-
+// --- CORREÇÃO SCROLL MOBILE ---
+document.addEventListener('DOMContentLoaded', function() {
+    const textareas = document.querySelectorAll('.indicator-table textarea');
+    
+    textareas.forEach(textarea => {
+        // Quando clicar no textarea, salva a posição do scroll
+        textarea.addEventListener('focus', function() {
+            this.scrollPosition = window.scrollX;
+        });
+        
+        // Quando sair do textarea, retorna para a posição original
+        textarea.addEventListener('blur', function() {
+            setTimeout(() => {
+                window.scrollTo(this.scrollPosition || 0, window.scrollY);
+            }, 100);
+        });
+    });
+});
+		
 </script>
 		
  

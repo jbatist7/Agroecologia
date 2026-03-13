@@ -111,11 +111,12 @@ h2, h3, h4 {
 
 	
 	
-	.form-group textarea,
+.form-group textarea,
 .indicator-table textarea {
-    resize: both;          /* permite expandir horizontal e vertical */
-    overflow: auto;        /* ativa rolagem quando necessário */
-    min-width: 100%;       /* garante largura total da coluna */
+    resize: vertical;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
     box-sizing: border-box;
 }
 

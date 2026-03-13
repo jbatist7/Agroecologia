@@ -301,17 +301,32 @@ th {
     }
 }
 
-/* --- NOVO BLOCO: CONTROLE DE SCROLL HORIZONTAL NO CELULAR --- */
+/* === CORREÇÃO MOBILE: Scroll horizontal apenas na tabela === */
 @media screen and (max-width: 768px) {
-    /* Faz com que o contêiner (fieldset) da tabela tenha barra de rolagem se necessário */
-    fieldset {
-        overflow-x: auto; 
-        padding-bottom: 5px; /* Adiciona espaço para a barra de rolagem */
+    /* Impede scroll horizontal da página inteira */
+    body, html {
+        overflow-x: hidden !important;
+        width: 100% !important;
     }
-
-    /* Força a tabela a ter uma largura mínima, ativando o scroll no fieldset */
+    
+    /* Permite scroll horizontal APENAS no fieldset da tabela */
+    fieldset {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-bottom: 8px !important;
+    }
+    
+    /* Força a tabela a ter largura mínima para ativar o scroll */
     .indicator-table {
-        min-width: 600px;
+        min-width: 650px !important;
+        display: block !important;
+    }
+    
+    /* Limita largura do textarea para não expandir a tabela */
+    .indicator-table textarea {
+        width: 220px !important;
+        max-width: 220px !important;
+        word-wrap: break-word !important;
     }
 }
 
@@ -463,7 +478,7 @@ th {
         }</style>
 <link href="https://static.skywork.ai/fe/skywork-site-assets/styles/doc_reference_style.css?v=1977355750973947904" rel="stylesheet"/></head>
 <body class="">
-<div class="container" style="overflow: hidden auto;">
+<div class="container">
 <header>
 <h1 id="section-1">Protocolo de Monitoramento da Transição Agroecológica (PMTA)</h1>
 <p>Ferramenta para diagnóstico e acompanhamento de propriedades familiares em transição.</p>
@@ -1748,7 +1763,17 @@ function exportToCSV() {
     document.body.removeChild(link);
 }
 
-
+/* === Correção mobile: trava scroll horizontal ao digitar === */
+(function(){
+    if(window.innerWidth<=768){
+        let x=0,y=0;
+        document.querySelectorAll('.indicator-table textarea').forEach(t=>{
+            t.addEventListener('focus',()=>{x=window.scrollX;y=window.scrollY});
+            t.addEventListener('blur',()=>setTimeout(()=>window.scrollTo(x,window.scrollY),100));
+            t.addEventListener('input',()=>window.scrollTo(x,window.scrollY));
+        });
+    }
+})();
 </script>
 		
  

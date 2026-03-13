@@ -3,14 +3,16 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Protocolo de Avaliação da Transição Agroecológica</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-<style>.container {
+<style>
+/* === CSS BASE === */
+.container {
     max-width: 800px;
     margin: 0 auto;
     padding: 24px 40px;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    }
+}
 .chart-container {
     position: relative;
     margin: 3em auto;
@@ -20,7 +22,7 @@
     width: 100%;
     height: auto;
     overflow: visible;
-    }
+}
 img {
     display: block;
     overflow: hidden;
@@ -28,15 +30,10 @@ img {
     max-height: 280px;
     margin: 1em auto;
     border-radius: 8px;
-    }
-h1 {
-    font-size: 20px;
-    margin-top: 24px;
-    margin-bottom: 20px;
-    }
-h5 {
-    font-size: 16px;
-    }
+}
+h1 { font-size: 20px; margin-top: 24px; margin-bottom: 20px; }
+h5 { font-size: 16px; }
+
 :root {
     --primary-color: #2c6b2f;
     --secondary-color: #f0f8f0;
@@ -49,7 +46,7 @@ h5 {
     --danger-color: #dc3545;
     --warning-color: #ffc107;
     --success-color: #28a745;
-    }
+}
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     line-height: 1.6;
@@ -58,75 +55,48 @@ body {
     margin: 0 24px 0 24px;
     padding: 0;
     font-size: 16px;
-    max-width: None;
-    }
+    max-width: none;
+}
 header {
     background-color: var(--header-bg);
     border-bottom: 2px solid var(--primary-color);
     padding: 20px;
     margin-bottom: 30px;
     text-align: center;
-    }
-header h1 {
-    color: var(--primary-color);
-    margin: 0;
-    font-size: 2.2em;
-    }
-
-header p {
-    margin-top: 5px;
-    font-size: 1.1em;
-    color: #000;
-    }
+}
+header h1 { color: var(--primary-color); margin: 0; font-size: 2.2em; }
+header p { margin-top: 5px; font-size: 1.1em; color: #000; }
 h2, h3, h4 {
-
     color: var(--primary-color);
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 10px;
     margin-top: 40px;
     font-size: 20px;
-    }
+}
 .section {
     margin-bottom: 40px;
     padding: 20px;
     background-color: var(--secondary-color);
     border-left: 5px solid var(--primary-color);
     border-radius: 5px;
-    }
-.form-group {
-    margin-bottom: 20px;
-    }
-.form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    }
+}
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
 .form-group input[type="text"], .form-group input[type="date"], .form-group select, .form-group textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     box-sizing: border-box;
-    }
-
-	
-	
-.form-group textarea,
-.indicator-table textarea {
+}
+.form-group textarea, .indicator-table textarea {
     resize: vertical;
     overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
     box-sizing: border-box;
 }
-
-	.indicator-table {
-    display: block;
-    overflow-x: auto;
-}
-	
-
-
+.indicator-table { display: block; overflow-x: auto; }
 table {
     width: 100%;
     border-collapse: collapse;
@@ -134,56 +104,22 @@ table {
     display: block;
     overflow-x: auto;
 }
-
-.indicator-table {
-    min-width: 900px;
-}
-
-th, td {
-    border: 1px solid var(--border-color);
-    padding: 12px;
-    text-align: left;
-}
-
-	
-
-	
-th {
-    background-color: var(--table-header-bg);
-    font-weight: bold;
-    }
-.indicator-table th:nth-child(1) {
-    width: 35%;
-    }
-.indicator-table th:nth-child(2) {
-    width: 15%;
-    }
-.indicator-table th:nth-child(3) {
-    width: 60%;
-    }
-.score-select {
-    font-weight: bold;
-    padding: 8px;
-    }
-.score-guide {
-    font-size: 0.9em;
-    color: #000;
-    margin-top: 10px;
-    }
-.score-guide ul {
-    padding-left: 20px;
-
-    margin: 0;
-    }
-.score-guide li {
-    margin-bottom: 5px;
-    }
+.indicator-table { min-width: 900px; }
+th, td { border: 1px solid var(--border-color); padding: 12px; text-align: left; }
+th { background-color: var(--table-header-bg); font-weight: bold; }
+.indicator-table th:nth-child(1) { width: 35%; }
+.indicator-table th:nth-child(2) { width: 15%; }
+.indicator-table th:nth-child(3) { width: 60%; }
+.score-select { font-weight: bold; padding: 8px; }
+.score-guide { font-size: 0.9em; color: #000; margin-top: 10px; }
+.score-guide ul { padding-left: 20px; margin: 0; }
+.score-guide li { margin-bottom: 5px; }
 #report-section {
     background-color: #fff;
     border: 1px solid var(--border-color);
     padding: 20px;
     border-radius: 5px;
-    }
+}
 #total-score-display {
     font-size: 1.5em;
     font-weight: bold;
@@ -191,89 +127,33 @@ th {
     padding: 20px;
     margin: 20px 0;
     border-radius: 5px;
-    }
-.phase-convencional {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    }
-.phase-1 {
-    background-color: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeeba;
-    }
-.phase-2 {
-    background-color: #d1ecf1;
-    color: #0c5460;
-    border: 1px solid #bee5eb;
-    }
-.phase-3 {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-    }
-.phase-4 {
-    background-color: #cce5ff;
-    color: #004085;
-    border: 1px solid #b8daff;
-    }
-.strengths-list, .weaknesses-list {
-    list-style-type: none;
-    padding: 0;
-    }
-.strengths-list li {
-    background-color: var(--success-color);
-    color: white;
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 4px;
-    }
-.weaknesses-list li {
-    background-color: var(--danger-color);
-    color: white;
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 4px;
-    }
-	
-	
-	/* Linhas alternadas na tabela de indicadores */
-.indicator-table tbody tr:nth-child(odd) {
-    background-color: #e8f4ff; /* azul claro */
 }
+.phase-convencional { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.phase-1 { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+.phase-2 { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+.phase-3 { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.phase-4 { background-color: #cce5ff; color: #004085; border: 1px solid #b8daff; }
+.strengths-list, .weaknesses-list { list-style-type: none; padding: 0; }
+.strengths-list li { background-color: var(--success-color); color: white; padding: 10px; margin-bottom: 5px; border-radius: 4px; }
+.weaknesses-list li { background-color: var(--danger-color); color: white; padding: 10px; margin-bottom: 5px; border-radius: 4px; }
 
-.indicator-table tbody tr:nth-child(even) {
-    background-color: #e9fbe9; /* verde claro */
-}
-	
-	
-	/* Estilo para os indicadores "Em Desenvolvimento" (notas 2–3) */
-.medium-list {
-    list-style-type: none;
-    padding: 0;
-}
+/* Linhas alternadas */
+.indicator-table tbody tr:nth-child(odd) { background-color: #e8f4ff; }
+.indicator-table tbody tr:nth-child(even) { background-color: #e9fbe9; }
 
+/* Indicadores em desenvolvimento */
+.medium-list { list-style-type: none; padding: 0; }
 .medium-list li {
-    background-color: #FFE8CC;   /* Laranja claro */
-    color: #C96A00;              /* Laranja escuro */
+    background-color: #FFE8CC;
+    color: #C96A00;
     padding: 10px;
     margin-bottom: 5px;
     border-radius: 4px;
     font-weight: 500;
 }
+.medium-list li::before { content: "• "; color: #C96A00; font-weight: bold; }
 
-.medium-list li::before {
-    content: "• ";
-    color: #C96A00;
-    font-weight: bold;
-}
-	
-.action-plan-table input {
-    width: 100%;
-    border: none;
-    background: transparent;
-    padding: 5px;
-    }
+.action-plan-table input { width: 100%; border: none; background: transparent; padding: 5px; }
 .print-button {
     display: block;
     width: 200px;
@@ -287,17 +167,10 @@ th {
     border-radius: 5px;
     cursor: pointer;
     border: none;
-    }
-
-.print-button:hover {
-    background-color: var(--button-hover-bg);
-    }
-.photo-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
 }
+.print-button:hover { background-color: var(--button-hover-bg); }
+
+.photo-gallery { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
 .photo-gallery img {
     flex: 1 1 calc(33.333% - 10px);
     max-width: calc(33.333% - 10px);
@@ -305,45 +178,33 @@ th {
     border-radius: 8px;
     object-fit: cover;
 }
-@media (max-width: 768px) {
-    .photo-gallery img {
-        flex-basis: calc(50% - 5px);
-        max-width: calc(50% - 5px);
-    }
-}
-@media (max-width: 480px) {
-    .photo-gallery img {
-        flex-basis: 100%;
-        max-width: 100%;
-    }
-}
 
-/* --- CONTROLE DE SCROLL HORIZONTAL NO CELULAR --- */
+/* === MEDIA QUERIES MOBILE - CORREÇÃO DE SCROLL === */
 @media screen and (max-width: 768px) {
+    .photo-gallery img { flex-basis: calc(50% - 5px); max-width: calc(50% - 5px); }
+    
     body, html {
         overflow-x: hidden !important;
         width: 100% !important;
         position: relative !important;
     }
-    
     .container {
         overflow-x: hidden !important;
         width: 100% !important;
         max-width: 100% !important;
+        padding: 10px !important;
+        margin: 10px !important;
     }
-    
     fieldset {
         overflow-x: auto !important;
         overflow-y: visible !important;
         -webkit-overflow-scrolling: touch !important;
         padding-bottom: 10px !important;
     }
-    
     .indicator-table {
         min-width: 650px !important;
         display: block !important;
     }
-    
     .indicator-table textarea {
         width: 250px !important;
         max-width: 250px !important;
@@ -352,48 +213,30 @@ th {
     }
 }
 
-@media print {
-    body {
-        box-shadow: none;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .container {
-        width: 100%;
-        max-width: none;
-        box-shadow: none;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .print-button, header p {
-        display: none;
-    }
-    
-    header {
-        padding: 10px 0;
-    }
-    
-    .section {
-        border-left: none;
-        background-color: #fff;
-        padding: 0;
-        margin-bottom: 20px;
-    }
-    
-    h2, h3, h4 {
-        margin-top: 20px;
-    }
-    
-    #report-section {
-        border: none;
-        padding: 0;
-    }
+@media (max-width: 480px) {
+    .photo-gallery img { flex-basis: 100%; max-width: 100%; }
 }
-</style>
-   
 
+/* === ESTILOS DE IMPRESSÃO === */
+@media print {
+    body { box-shadow: none; margin: 0; padding: 0; }
+    .container { width: 100%; max-width: none; box-shadow: none; margin: 0; padding: 0; }
+    .print-button, header p { display: none; }
+    header { padding: 10px 0; }
+    .section { border-left: none; background-color: #fff; padding: 0; margin-bottom: 20px; }
+    h2, h3, h4 { margin-top: 20px; }
+    #report-section { border: none; padding: 0; }
+}
+
+/* === ESTILOS MOBILE ADICIONAIS (PingFang SC) === */
+@media only screen and (max-device-width: 768px) {
+    body {
+        padding: 0 !important;
+        margin: 0 !important;
+        font-family: PingFang SC, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 12px;
+        line-height: 1.5;
+    }
     .container {
         padding: 10px !important;
         margin: 10px !important;
@@ -402,120 +245,21 @@ th {
         overflow-x: hidden !important;
         box-shadow: none !important;
     }
-
-    /* Fieldset com scroll próprio para a tabela */
-    fieldset {
-        overflow-x: auto !important;
-        overflow-y: visible !important;
-        -webkit-overflow-scrolling: touch !important;
-        padding-bottom: 10px !important;
-        border: 1px solid #ccc !important;
-    }
-
-    /* Tabela com largura mínima para ativar scroll */
-    .indicator-table {
-        min-width: 650px !important;
-        display: block !important;
-    }
-
-    /* Textarea não pode expandir horizontalmente */
-    .indicator-table textarea {
-        width: 250px !important;
-        max-width: 250px !important;
-        min-width: 250px !important;
-        word-wrap: break-word !important;
-        overflow-x: hidden !important;
-    }
-    /* === FIM CORREÇÃO SCROLL === */
-
-    h1,
-    h2,
-    h3,
-    h4 {
-        font-family: PingFang SC;
-    }
-
-    h1 {
-        font-size: 1.87em;
-        line-height: 1.6;
-        margin-bottom: 0.5em;
-        text-align: center;
-    }
-
-    h2 {
-        font-size: 1.6em;
-        font-weight: 600;
-        margin-top: 1.3em;
-        margin-bottom: 0.8em;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 0.5em;
-    }
-
-    h3 {
-        font-size: 1.2em;
-        font-weight: 600;
-        margin-top: 1em;
-        margin-bottom: 0.6em;
-    }
-
-    h4 {
-        font-size: 1.1em;
-        font-weight: 500;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
-        font-style: normal;
-    }
-
-    h5 {
-        font-size: 1em;
-        font-weight: 500;
-        margin-bottom: 1.2em;
-    }
-
-    ul,
-    ol {
-        font-size: 1em;
-        font-weight: 400;
-        margin-bottom: 1.2em;
-        line-height: 1.8;
-    }
-
-    p {
-        font-size: 1em;
-        line-height: 1.8;
-        font-weight: 400;
-        margin-top: 0.8em;
-        margin-bottom: 0.8em;
-    }
-
-    blockquote {
-        padding: 1em 1.2em;
-    }
-
-    blockquote p {
-        margin: 0;
-    }
-
-    figcaption {
-        margin-top: 0.5em;
-        font-size: 0.8em;
-        font-weight: 400;
-        text-align: center;
-        font-style: normal;
-        color: #000;
-    }
-
-    img {
-        display: block;
-        overflow: hidden;
-        max-width: 100%;
-        max-height: 335px;
-        margin: 1em auto;
-        border-radius: 8px;
-    }
+    h1, h2, h3, h4 { font-family: PingFang SC, sans-serif; }
+    h1 { font-size: 1.87em; line-height: 1.6; margin-bottom: 0.5em; text-align: center; }
+    h2 { font-size: 1.6em; font-weight: 600; margin-top: 1.3em; margin-bottom: 0.8em; border-bottom: 1px solid #eee; padding-bottom: 0.5em; }
+    h3 { font-size: 1.2em; font-weight: 600; margin-top: 1em; margin-bottom: 0.6em; }
+    h4 { font-size: 1.1em; font-weight: 500; margin-top: 1em; margin-bottom: 0.5em; font-style: normal; }
+    h5 { font-size: 1em; font-weight: 500; margin-bottom: 1.2em; }
+    ul, ol { font-size: 1em; font-weight: 400; margin-bottom: 1.2em; line-height: 1.8; }
+    p { font-size: 1em; line-height: 1.8; font-weight: 400; margin-top: 0.8em; margin-bottom: 0.8em; }
+    blockquote { padding: 1em 1.2em; }
+    blockquote p { margin: 0; }
+    figcaption { margin-top: 0.5em; font-size: 0.8em; font-weight: 400; text-align: center; font-style: normal; color: #000; }
+    img { display: block; overflow: hidden; max-width: 100%; max-height: 335px; margin: 1em auto; border-radius: 8px; }
 }
-
 </style>
+
     
 
 <body class="">

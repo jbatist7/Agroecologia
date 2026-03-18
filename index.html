@@ -1753,8 +1753,18 @@ function exportToCSV() {
     document.body.removeChild(link);
 }
 
-
 </script>
-	
+
+
+	<script>
+fetch('https://api.countapi.xyz/hit/viabilidadefinanceira/acessos')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('contador-visitas').innerText = data.value;
+  })
+  .catch(() => {
+    document.getElementById('contador-visitas').innerText = '-';
+  });
+</script>
  
 </body></html>
